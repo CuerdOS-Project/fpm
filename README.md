@@ -28,6 +28,9 @@ make
 # Ejecutar de forma local
 ./fpm
 
+#o tambien instalarlo en el sistema
+make install
+
 ```
 
 ## Uso
