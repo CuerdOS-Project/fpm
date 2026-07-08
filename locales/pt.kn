@@ -1,0 +1,118 @@
+# FPM - Catálogo de idioma: Português
+usage_description=FPM - Flaps Package Manager (XBPS)
+usage_label=Uso
+usage_command=comando
+usage_args=argumentos
+usage_commands_header=Comandos
+usage_options_header=Opções
+usage_examples_header=Exemplos
+
+opt_yes=Confirmar automaticamente (sem perguntar)
+opt_all=Mostrar todos os resultados
+opt_select=Modo de seleção interativa
+opt_reverse=Mostrar em ordem inversa
+opt_verbose=Mostrar os comandos executados
+opt_version=Mostrar a versão do FPM
+opt_help=Mostrar esta ajuda
+
+cmd_install=Instalar pacote(s)
+cmd_remove=Remover pacote(s)
+cmd_superremove=Remoção profunda + limpeza
+cmd_search=Buscar pacotes
+cmd_info=Informação de um pacote
+cmd_update=Sincronizar repositórios
+cmd_upgrade=Atualizar o sistema
+cmd_list=Listar pacotes instalados
+cmd_repair=Reparar o sistema de pacotes
+cmd_clean=Limpar cache de pacotes baixados
+cmd_check=Verificar integridade do sistema de pacotes
+cmd_files=Listar arquivos instalados por um pacote
+cmd_owns=Buscar qual pacote fornece um arquivo
+cmd_deps=Mostrar dependências de um pacote
+cmd_hold=Reter pacote(s) para não serem atualizados
+cmd_unhold=Liberar pacote(s) retido(s)
+cmd_orphans=Listar pacotes órfãos
+cmd_autoremove=Remover pacotes órfãos automaticamente
+cmd_size=Mostrar tamanho instalado de pacote(s)
+cmd_diskusage=Mostrar uso de disco do cache de pacotes
+
+hdr_installing=Instalando
+hdr_removing=Removendo
+hdr_syncing=Sincronizando repositórios
+hdr_upgrading=Atualizando sistema
+hdr_searching=Buscando
+hdr_info=Informação
+hdr_installed_packages=Pacotes instalados
+hdr_repairing=Reparando sistema
+hdr_cleaning_cache=Limpando cache de pacotes
+hdr_checking_integrity=Verificando integridade do sistema
+hdr_files_of=Arquivos de
+hdr_searching_owner=Buscando proprietário de
+hdr_orphans=Pacotes órfãos
+hdr_autoremove=Removendo pacotes órfãos
+hdr_size=Tamanho instalado
+hdr_diskusage=Uso de disco
+
+step_removing_config=Removendo pacote(s) e configuração...
+step_removing_orphans=Removendo órfãos...
+step_cleaning_cache=Limpando cache...
+step_reconfiguring_db=Reconfigurando banco de dados de pacotes...
+
+ok_installed=Pacote(s) instalado(s) com sucesso
+ok_removed=Pacote(s) removido(s)
+ok_superremove_done=Superremove concluído
+ok_synced=Repositórios sincronizados
+ok_upgraded=Sistema atualizado
+ok_repair_done=Reparo concluído
+ok_cache_cleaned=Cache limpo
+ok_check_done=Verificação concluída
+ok_held=Pacotes retidos (não serão atualizados)
+ok_unheld=Pacotes liberados
+ok_autoremove_done=Pacotes órfãos removidos
+
+err_no_privilege_tool=São necessários privilégios de root, mas 'sudo' nem 'doas' foram encontrados.
+err_elevation_failed=Não foi possível reexecutar com privilégios elevados.
+err_xbps_not_found=xbps não encontrado. Este sistema não é compatível com FPM
+err_install_failed=Não foi possível concluir a instalação
+err_sync_failed=Não foi possível sincronizar os repositórios
+err_package_not_found=Pacote '%s' não encontrado
+err_package_not_found_simple=Pacote '%s' não encontrado
+err_package_not_installed=Pacote '%s' não encontrado ou não instalado
+err_select_needs_tty=--select requer um terminal interativo
+err_missing_packages=Você deve especificar pelo menos um pacote
+err_missing_query=Você deve especificar um termo de busca
+err_missing_package=Você deve especificar um pacote
+err_missing_path=Você deve especificar um caminho
+err_unknown_command=Comando desconhecido: '%s'
+
+warn_no_packages_found=Nenhum pacote encontrado
+warn_no_owner=Nenhum pacote instalado fornece esse arquivo
+warn_nothing_to_remove=Não havia pacotes órfãos para remover
+
+info_elevating='%s' requer privilégios. Reexecutando com %s...
+info_search_hint=SPACE/clique para marcar, ENTER para confirmar, q para sair.
+info_none_selected=Nenhum pacote selecionado.
+info_install_cancelled=Instalação cancelada.
+info_remove_cancelled=Remoção cancelada.
+info_try_search=Tente: fpm search %s
+info_list_select_hint=%d pacote(s) instalado(s). SPACE/clique para marcar, ENTER para confirmar, q para sair.
+info_more_packages=... e mais %d. Use -a para ver todos
+info_no_results=Sem resultados
+info_no_orphans=Nenhum pacote órfão
+info_orphans_hint=%d pacote(s) órfão(s) encontrado(s). Use 'fpm autoremove' para removê-los.
+info_size_unknown=tamanho desconhecido
+
+lbl_selected=Selecionados
+lbl_dependencies_of=Dependências de
+lbl_dependents_of=Dependentes de
+
+ask_install_selected=Instalar os pacotes selecionados?
+ask_remove_selected=Remover os pacotes selecionados?
+
+verb_holding=Retendo
+verb_unholding=Liberando
+
+tui_filter_label=Filtro
+tui_results=resultado(s)
+tui_selected=selecionado(s)
+tui_help= ↑↓/jk mover  SPACE marcar  Clique marcar  DblClique confirmar  A todos  ENTER confirmar  ESC/q sair

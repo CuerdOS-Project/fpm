@@ -1,0 +1,118 @@
+# FPM - Language catalog: English
+usage_description=FPM - Flaps Package Manager (XBPS)
+usage_label=Usage
+usage_command=command
+usage_args=arguments
+usage_commands_header=Commands
+usage_options_header=Options
+usage_examples_header=Examples
+
+opt_yes=Automatically confirm (no prompt)
+opt_all=Show all results
+opt_select=Interactive selection mode
+opt_reverse=Show in reverse order
+opt_verbose=Print the commands being run
+opt_version=Show the FPM version
+opt_help=Show this help
+
+cmd_install=Install package(s)
+cmd_remove=Remove package(s)
+cmd_superremove=Deep removal + cleanup
+cmd_search=Search packages
+cmd_info=Show package information
+cmd_update=Sync repositories
+cmd_upgrade=Upgrade the system
+cmd_list=List installed packages
+cmd_repair=Repair the package system
+cmd_clean=Clean downloaded package cache
+cmd_check=Verify package system integrity
+cmd_files=List files installed by a package
+cmd_owns=Find which package provides a file
+cmd_deps=Show package dependencies
+cmd_hold=Hold package(s) so they don't get updated
+cmd_unhold=Release held package(s)
+cmd_orphans=List orphaned packages
+cmd_autoremove=Automatically remove orphaned packages
+cmd_size=Show installed size of package(s)
+cmd_diskusage=Show disk usage of the package cache
+
+hdr_installing=Installing
+hdr_removing=Removing
+hdr_syncing=Syncing repositories
+hdr_upgrading=Upgrading system
+hdr_searching=Searching
+hdr_info=Info
+hdr_installed_packages=Installed packages
+hdr_repairing=Repairing system
+hdr_cleaning_cache=Cleaning package cache
+hdr_checking_integrity=Verifying system integrity
+hdr_files_of=Files of
+hdr_searching_owner=Searching owner of
+hdr_orphans=Orphaned packages
+hdr_autoremove=Removing orphaned packages
+hdr_size=Installed size
+hdr_diskusage=Disk usage
+
+step_removing_config=Removing package(s) and configuration...
+step_removing_orphans=Removing orphans...
+step_cleaning_cache=Cleaning cache...
+step_reconfiguring_db=Reconfiguring package database...
+
+ok_installed=Package(s) installed successfully
+ok_removed=Package(s) removed
+ok_superremove_done=Superremove completed
+ok_synced=Repositories synced
+ok_upgraded=System upgraded
+ok_repair_done=Repair completed
+ok_cache_cleaned=Cache cleaned
+ok_check_done=Verification completed
+ok_held=Packages held (won't be updated)
+ok_unheld=Packages released
+ok_autoremove_done=Orphaned packages removed
+
+err_no_privilege_tool=Root privileges are required but neither 'sudo' nor 'doas' was found.
+err_elevation_failed=Could not re-execute with elevated privileges.
+err_xbps_not_found=xbps not found. This system is not supported by FPM
+err_install_failed=Installation could not be completed
+err_sync_failed=Could not sync repositories
+err_package_not_found=Package '%s' not found
+err_package_not_found_simple=Package '%s' not found
+err_package_not_installed=Package '%s' not found or not installed
+err_select_needs_tty=--select requires an interactive terminal
+err_missing_packages=You must specify at least one package
+err_missing_query=You must specify a search term
+err_missing_package=You must specify a package
+err_missing_path=You must specify a path
+err_unknown_command=Unknown command: '%s'
+
+warn_no_packages_found=No packages found
+warn_no_owner=No installed package provides that file
+warn_nothing_to_remove=There were no orphaned packages to remove
+
+info_elevating='%s' requires privileges. Re-executing with %s...
+info_search_hint=SPACE/click to mark, ENTER to confirm, q to quit.
+info_none_selected=No package selected.
+info_install_cancelled=Installation cancelled.
+info_remove_cancelled=Removal cancelled.
+info_try_search=Try: fpm search %s
+info_list_select_hint=%d package(s) installed. SPACE/click to mark, ENTER to confirm, q to quit.
+info_more_packages=... and %d more. Use -a to see all
+info_no_results=No results
+info_no_orphans=No orphaned packages
+info_orphans_hint=%d orphaned package(s) found. Use 'fpm autoremove' to remove them.
+info_size_unknown=unknown size
+
+lbl_selected=Selected
+lbl_dependencies_of=Dependencies of
+lbl_dependents_of=Dependents of
+
+ask_install_selected=Install the selected packages?
+ask_remove_selected=Remove the selected packages?
+
+verb_holding=Holding
+verb_unholding=Releasing
+
+tui_filter_label=Filter
+tui_results=result(s)
+tui_selected=selected
+tui_help= ↑↓/jk move  SPACE mark  Click mark  DblClick confirm  A all  ENTER confirm  ESC/q quit
