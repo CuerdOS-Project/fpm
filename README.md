@@ -1,4 +1,4 @@
-# fpm (Fast Package Manager)
+# fpm (Flaps Package Manager)
 
 Un gestor de paquetes interactivo en terminal diseñado específicamente para **XBPS** (X Binary Package System). **fpm** combina la velocidad de los componentes de bajo nivel desarrollados en **C** con una interfaz visual fluida y ligera construida sobre **curses**.
 
