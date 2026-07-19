@@ -13,7 +13,7 @@ PREFIX      ?= /usr/local
 BINDIR      := $(PREFIX)/bin
 LOCALE_DIR  := $(PREFIX)/share/fpm/locales
 
-.PHONY: all clean install uninstall
+.PHONY: all clean install uninstall check-i18n
 
 all: $(BIN)
 
@@ -29,7 +29,10 @@ $(BUILD_DIR):
 clean:
 	rm -rf $(BUILD_DIR) $(BIN)
 
-install: all
+check-i18n:
+	./check-i18n.sh
+
+install: all check-i18n
 	install -Dm755 $(BIN) $(DESTDIR)$(BINDIR)/$(BIN)
 	install -d $(DESTDIR)$(LOCALE_DIR)
 	install -Dm644 locales/*.kn -t $(DESTDIR)$(LOCALE_DIR)
