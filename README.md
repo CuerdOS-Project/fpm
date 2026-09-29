@@ -1,6 +1,6 @@
-# FPM en Go
+# fpm Go Edition
 
-Esta carpeta contiene la migración de FPM desde C a Go. El objetivo es conservar la interfaz de comandos y mejorar la mantenibilidad, la seguridad de memoria y el control explícito de las operaciones destructivas.
+Esta carpeta contiene la migración de FPM desde C a Go. El objetivo es conservar la interfaz de comandos y mejorar la mantenibilidad, la seguridad de memoria y el control explícito de las operaciones destructivas con otra eficiencia.
 
 ## Requisitos
 
