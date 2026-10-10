@@ -190,28 +190,13 @@ func nissaUpdates(args []string) int {
 		_ = nissaEmitVersion(nissaVersion2, "updates.error", map[string]any{"exit_code": result.Code}, nissaBool(false), "update_query_failed")
 		return 1
 	}
+	candidates := parseXBPSUpdateCandidates(result.Stdout)
 	count := 0
-	scanner := bufio.NewScanner(strings.NewReader(result.Stdout))
-	scanner.Buffer(make([]byte, 4096), 1024*1024)
-	for scanner.Scan() {
+	for _, candidate := range candidates {
 		if count >= nissaMaxResults {
 			break
 		}
-		fields := strings.Fields(strings.TrimSpace(scanner.Text()))
-		if len(fields) == 0 || fields[0] == "Name" || strings.HasPrefix(fields[0], "-") {
-			continue
-		}
-		name, newVersion := splitNissaPackageVersion(fields[0])
-		if newVersion == "" {
-			// Newer XBPS versions may use columns: name, version, architecture.
-			if len(fields) < 2 {
-				continue
-			}
-			name, newVersion = fields[0], fields[1]
-		}
-		if name == "" || !nissaPackageName.MatchString(name) || !looksLikeVersion(newVersion) {
-			continue
-		}
+		name, newVersion := candidate.name, candidate.newVersion
 		currentVersion := nissaInstalledVersion(name)
 		arch := nissaInstalledProperty(name, "architecture")
 		if currentVersion == "" {
@@ -224,9 +209,6 @@ func nissaUpdates(args []string) int {
 			return 1
 		}
 		count++
-	}
-	if err := scanner.Err(); err != nil {
-		return nissaError(nissaVersion2, "updates", "response_read_failed", 1)
 	}
 	_ = nissaEmitVersion(nissaVersion2, "updates.done", map[string]any{"ok": true, "count": count}, nissaBool(true), "")
 	return 0

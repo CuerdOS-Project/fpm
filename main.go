@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-const version = "1.2-go"
+const version = "2.0 beta 3"
 
 func usage(prog string) {
 	fmt.Printf("%s\n\n", tr("usage_description"))
@@ -14,7 +14,8 @@ func usage(prog string) {
 	fmt.Printf("%s:\n", tr("usage_commands_header"))
 	commands := []struct{ usage, key string }{
 		{"install <pkg...>", "cmd_install"}, {"remove <pkg...>", "cmd_remove"}, {"superremove <pkg...>", "cmd_superremove"},
-		{"search <query>", "cmd_search"}, {"info <pkg>", "cmd_info"}, {"update", "cmd_update"}, {"upgrade", "cmd_upgrade"},
+		{"search <query>", "cmd_search"}, {"info <pkg>", "cmd_info"}, {"update", "cmd_update"}, {"updates", "cmd_updates"}, {"upgrade", "cmd_upgrade"},
+		{"repos [list|enable <name>]", "cmd_repos"},
 		{"list [-a|-s]", "cmd_list"}, {"repair", "cmd_repair"}, {"clean", "cmd_clean"}, {"check", "cmd_check"},
 		{"files <pkg>", "cmd_files"}, {"owns <path>", "cmd_owns"}, {"deps <pkg> [-r]", "cmd_deps"}, {"hold <pkg...>", "cmd_hold"},
 		{"unhold <pkg...>", "cmd_unhold"}, {"orphans", "cmd_orphans"}, {"autoremove", "cmd_autoremove"}, {"size <pkg...>", "cmd_size"}, {"diskusage", "cmd_diskusage"}, {"cache-info", "cmd_cache_info"}, {"db check", "cmd_db_check"}, {"db repair", "cmd_db_repair"},
@@ -193,7 +194,11 @@ func main() {
 	}
 	command := canonicalCommand(args[0])
 	if command != "appimage" && command != "flatpak" {
-		if command != "db" || dbCommandNeedsRoot(positionals(args[1:])) {
+		if command == "repos" {
+			if reposCommandNeedsRoot(positionals(args[1:])) {
+				elevateIfNeeded("install")
+			}
+		} else if command != "db" || dbCommandNeedsRoot(positionals(args[1:])) {
 			elevateIfNeeded(command)
 		}
 		cachedDBList := command == "db" && !dbCommandNeedsRoot(positionals(args[1:]))
@@ -371,8 +376,12 @@ func main() {
 		}
 	case "update":
 		updateXBPS()
+	case "updates":
+		listPendingXBPSUpdates()
 	case "upgrade":
 		upgradeXBPS()
+	case "repos":
+		runReposCommand(positionals(args[1:]))
 	case "list":
 		listXBPS(hasFlag(args, "--all", "-a"), hasFlag(args, "--select", "-s"))
 	case "repair":

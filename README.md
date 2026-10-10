@@ -1,4 +1,4 @@
-# fpm Go Edition
+# fpm Go Edition — 2.0 beta 3
 
 Esta carpeta contiene la migración de FPM desde C a Go. El objetivo es conservar la interfaz de comandos y mejorar la mantenibilidad, la seguridad de memoria y el control explícito de las operaciones destructivas con otra eficiencia.
 
@@ -72,7 +72,11 @@ fpm remove <paquete...>
 fpm search <texto>
 fpm info <paquete>
 fpm update
+fpm updates
 fpm upgrade
+fpm repos
+sudo fpm repos enable nonfree
+sudo fpm repos enable multilib
 fpm list [-a|-s]
 fpm repair
 fpm clean
@@ -94,6 +98,10 @@ fpm db repair
 ```
 
 `cache-info` muestra el tamaño y número de archivos de `/var/cache/xbps` y `/var/db/xbps`, además del número de paquetes instalados cuando está disponible. `db check` ejecuta `xbps-pkgdb -k`, mientras que `db repair` ejecuta `xbps-pkgdb -a` y comprueba el código de salida.
+
+`fpm update` sincroniza los índices de repositorio; `fpm updates` consulta y lista los paquetes con actualizaciones pendientes sin cambiar el sistema; `fpm upgrade` aplica las actualizaciones mediante XBPS.
+
+`fpm repos` muestra los repositorios registrados en XBPS (`xbps-query -L`), que son los que FPM utiliza para buscar, consultar e instalar paquetes. `fpm repos enable nonfree`, `multilib`, `multilib-nonfree` o `debug` instala el paquete oficial `void-repo-*` correspondiente y después conviene ejecutar `fpm update`. No se activa ningún repositorio automáticamente. `current` es el repositorio principal definido por la instalación; `musl` es la variante de libc y arquitectura instalada (`current/musl`), no un subrepositorio que se cambie con un toggle. Multilib solo está disponible para x86_64 con glibc; Void no ofrece multilib en musl. FPM delega resolución e instalación a XBPS y no inventa índices alternos. Véase el [Void Handbook: repositories](https://docs.voidlinux.org/xbps/repositories/index.html) y su [guía de musl](https://docs.voidlinux.org/installation/musl.html).
 
 FPM mantiene un snapshot/caché SQLite global propio en `/var/lib/fpm/fpm.db`
 para guardar su inventario consultable (`fpm db list`). Se reconstruye desde
@@ -201,7 +209,7 @@ La lógica continúa usando los ejecutables oficiales `xbps-*` y `flatpak`; no i
 
 ## Diferencias y límites conocidos
 
-La versión Go cambia la versión mostrada a `1.2-go` para distinguirla durante la validación. Los resultados de XBPS y Flatpak se interpretan a partir de sus salidas textuales o tabulares; si esas herramientas cambian sus formatos, los parseadores deberán actualizarse.
+Esta versión se identifica como `2.0 beta 3`. Incluye `fpm updates`, una consulta de solo lectura para listar los paquetes pendientes; `fpm update` sincroniza los índices y `fpm upgrade` aplica las actualizaciones. `fpm repos` inspecciona repositorios XBPS registrados y permite habilitar subrepositorios oficiales. Los resultados de XBPS y Flatpak se interpretan a partir de sus salidas textuales o tabulares; si esas herramientas cambian sus formatos, los parseadores deberán actualizarse.
 
 Antes de reemplazar la versión C en producción, conviene probar las operaciones destructivas en una instalación Void Linux de prueba y comparar sus salidas con la versión original para cada comando.
 
