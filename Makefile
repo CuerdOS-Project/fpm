@@ -1,42 +1,38 @@
-CC      ?= cc
-CFLAGS  ?= -std=c11 -Wall -Wextra -O2
-LDFLAGS ?= -lncurses
+PREFIX ?= /usr/local
+BINDIR := $(PREFIX)/bin
+BASHCOMPDIR ?= $(PREFIX)/share/bash-completion/completions
+ZSHCOMPDIR  ?= $(PREFIX)/share/zsh/site-functions
+FISHCOMPDIR ?= $(PREFIX)/share/fish/vendor_completions.d
 
-SRC_DIR := src
-BUILD_DIR := build
-BIN := fpm
+.PHONY: all build test vet race install uninstall clean check-i18n
 
-SOURCES := $(wildcard $(SRC_DIR)/*.c)
-OBJECTS := $(SOURCES:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+all: build
 
-PREFIX      ?= /usr/local
-BINDIR      := $(PREFIX)/bin
-LOCALE_DIR  := $(PREFIX)/share/fpm/locales
+build:
+	go build -trimpath -ldflags "-s -w" -o fpm ./cmd/fpm
 
-.PHONY: all clean install uninstall check-i18n
+test:
+	go test ./...
 
-all: $(BIN)
+race:
+	go test -race ./...
 
-$(BIN): $(OBJECTS)
-	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LDFLAGS)
-
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
-
-clean:
-	rm -rf $(BUILD_DIR) $(BIN)
+vet:
+	go vet ./...
 
 check-i18n:
 	./check-i18n.sh
 
-install: all check-i18n
-	install -Dm755 $(BIN) $(DESTDIR)$(BINDIR)/$(BIN)
-	install -d $(DESTDIR)$(LOCALE_DIR)
-	install -Dm644 locales/*.kn -t $(DESTDIR)$(LOCALE_DIR)
+install: build
+	install -Dm755 fpm $(DESTDIR)$(BINDIR)/fpm
+	install -d $(DESTDIR)$(BASHCOMPDIR) $(DESTDIR)$(ZSHCOMPDIR) $(DESTDIR)$(FISHCOMPDIR)
+	./fpm completion bash > $(DESTDIR)$(BASHCOMPDIR)/fpm
+	./fpm completion zsh  > $(DESTDIR)$(ZSHCOMPDIR)/_fpm
+	./fpm completion fish > $(DESTDIR)$(FISHCOMPDIR)/fpm.fish
 
 uninstall:
-	rm -f $(DESTDIR)$(BINDIR)/$(BIN)
-	rm -rf $(DESTDIR)$(LOCALE_DIR)
+	rm -f $(DESTDIR)$(BINDIR)/fpm $(DESTDIR)$(BASHCOMPDIR)/fpm \
+		$(DESTDIR)$(ZSHCOMPDIR)/_fpm $(DESTDIR)$(FISHCOMPDIR)/fpm.fish
+
+clean:
+	rm -f fpm
