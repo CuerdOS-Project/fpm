@@ -2,9 +2,10 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+locales_dir="$root/internal/fpm/locales"
 keys="$(grep -RhoE 'tr\("[^"]+"\)' "$root" --include='*.go' | sed -E 's/tr\("([^"]+)"\)/\1/' | sort -u)"
 status=0
-for locale in "$root"/locales/*.kn; do
+for locale in "$locales_dir"/*.kn; do
     while IFS= read -r key; do
         [[ -z "$key" ]] && continue
         if ! grep -q "^${key}=" "$locale"; then
